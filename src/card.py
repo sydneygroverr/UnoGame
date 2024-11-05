@@ -22,7 +22,3 @@ class Card():
          
         return self.c   
     
-
-oCard = Card()
-
-oCard.getCard()
