@@ -1,7 +1,15 @@
 from card import Card
-from deck import Deck
-from player import Player
+from play import Play
 
 oCard = Card()
+oPlay = Play()
 
-oCard.getCard()
+playerName = oPlay.playerName()
+
+oPlay.rules(playerName)
+
+playerHand = oCard.getHand()
+computerHand = oCard.getHand()
+
+throwAwayPile = oCard.getStartCard()
+
