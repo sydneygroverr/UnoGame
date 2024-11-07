@@ -22,3 +22,23 @@ class Card():
          
         return self.c   
     
+    # ensures starting card is a plain number card
+    def getStartCard(self):
+        cardColor = random.randrange(0,4)
+        x = random.randrange(0,10)
+
+        val = self.value[x]
+        self.c = (f'{self.color[cardColor]} {val}')
+         
+        return self.c 
+    
+    # to start each game both players get 7 cards
+    def getHand(self):
+        hand = []
+        x = 0
+
+        while x < 7:
+            hand.append(self.getCard()) 
+            x += 1
+
+        return hand
