@@ -42,3 +42,23 @@ class Card():
             x += 1
 
         return hand
+
+    def draw4(self):
+        x = 0
+        val = []
+        while x < 4:
+            val.append(self.getCard())
+            x += 1
+        return val
+    
+    def chooseColor(self):
+        color = input("What would you like the new color to be? 1-red, 2-blue, 3-green, 4-yellow")
+        return color
+    
+    def draw2(self):
+        x = 0
+        val = []
+        while x < 2:
+            val.append(self.getCard())
+            x += 1
+        return val

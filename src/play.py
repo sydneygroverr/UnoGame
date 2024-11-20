@@ -27,3 +27,32 @@ class Play():
         else:
             print(start)
 
+    def chooseCard(self, hand, throwAwayPile):
+        print(hand)
+        card =  input("What card do you want to play? 1-" + str(len(hand))) 
+        val = int(card) - 1
+        choice = hand[val] 
+
+        result = Play.validCard(self, choice, throwAwayPile, hand)
+
+        if result == True:
+            return choice
+
+
+    def validCard(self, card, throwAwayPile, hand):
+
+        if card == "+4" or card == "choose color":
+            throwAwayPile = card
+            return True
+        elif card.split(" ")[0] == throwAwayPile.split(" ")[0]:
+            throwAwayPile = card
+            return True
+        elif card.split(" ")[1] == throwAwayPile.split(" ")[1]:
+            throwAwayPile = card
+            return True
+        else:
+            print(f'{card} is an invalid card. Try again.')
+            self.chooseCard(self, hand, throwAwayPile)
+
+    # def computerTurn(self, hand, throwAwayPile):
+    #     # do computer turn here
