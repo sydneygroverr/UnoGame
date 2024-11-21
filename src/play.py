@@ -1,11 +1,11 @@
 class Play():
-
+    
     def playerName(self):
-        name = input("What is your name?")
+        name = input("\nWhat is your name?\n")
         return name
 
     def rules(self, name):
-        played = input(f"Hi {name}! Have you played UNO before? y/n \n")
+        played = input(f"\nHi {name}! Have you played UNO before? y/n \n")
 
         no = ['n', 'no', 'nah', 'never', 'negative', 'nope']
         yes = ['y', 'yes', 'ya', 'yeah', 'yah']
@@ -20,7 +20,7 @@ class Play():
                 so you'll want to avoid picking up cards as best you can. \n
                 Good luck and have fun! \n"""
         
-        start = "Then lets get started!"
+        start = "\nThen lets get started!"
 
         if played.lower() in no:
             print(rules)
@@ -29,7 +29,7 @@ class Play():
 
     def chooseCard(self, hand, throwAwayPile):
         print(hand)
-        card =  input("What card do you want to play? 1-" + str(len(hand))) 
+        card =  input("\nWhat card do you want to play? 1-" + str(len(hand)) + "\n") 
         val = int(card) - 1
         choice = hand[val] 
 
@@ -37,6 +37,9 @@ class Play():
 
         if result == True:
             return choice
+        else: 
+            print("You must draw a card")
+            return ""
 
 
     def validCard(self, card, throwAwayPile, hand):
@@ -51,8 +54,35 @@ class Play():
             throwAwayPile = card
             return True
         else:
-            print(f'{card} is an invalid card. Try again.')
-            self.chooseCard(self, hand, throwAwayPile)
+            canPlay = self.computerTurn(hand, throwAwayPile)
+            if canPlay == "":
+                return False
+            else:
+                print(f'{card} is an invalid card. Try again.')
+                self.chooseCard(hand, throwAwayPile)
 
-    # def computerTurn(self, hand, throwAwayPile):
-    #     # do computer turn here
+    def computerTurn(self, hand, throwAwayPile):
+        if throwAwayPile in hand:
+            return throwAwayPile
+        else:
+            # check for wilds first
+            if "+4" in hand:
+                return "+4"
+            elif "choose color" in hand:
+                return "choose color"
+            else:
+                for x in range(len(hand)):
+                    val = hand[x].split()
+
+                    if len(val) < 2:
+                        if val[0] in throwAwayPile:
+                            return hand[x]
+                    else:
+                        if val[0] in throwAwayPile or val[1] in throwAwayPile:
+                            return hand[x]
+
+                # if they have no card that can play 
+                return ""
+                    
+            
+                

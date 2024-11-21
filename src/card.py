@@ -52,7 +52,17 @@ class Card():
         return val
     
     def chooseColor(self):
-        color = input("What would you like the new color to be? 1-red, 2-blue, 3-green, 4-yellow")
+        color = input("What would you like the new color to be? 1-red, 2-blue, 3-green, 4-yellow\n")
+
+        if color == "1":
+            color = "red"
+        elif color == "2":
+            color = "blue"
+        elif color == "3":
+            color = "green"
+        else:
+            color = "yellow"
+
         return color
     
     def draw2(self):
@@ -62,3 +72,23 @@ class Card():
             val.append(self.getCard())
             x += 1
         return val
+    
+    def computerChooseColor(self, hand):
+        x = 0
+        color = ""
+
+        while color == "":
+            if hand[x].split()[0] == "red":
+                color = "red"
+            elif hand[x].split()[0] == "blue":
+                color = "blue"
+            elif hand[x].split()[0] == "green":
+                color = "green"
+            elif hand[x].split()[0] == "yellow":
+                color = "yellow"
+            else: 
+                x += 1
+                if x > len(hand):
+                    color = "red"
+        
+        return color
