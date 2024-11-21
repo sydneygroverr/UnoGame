@@ -35,6 +35,10 @@ while len(playerHand) > 0 or len(computerHand) > 0:
     if card == "":
         cardDrawn = oCard.getCard()
         player[x].append(cardDrawn)
+        
+        if x == 0:
+            print(player[x])
+            
     else:
         throwAwayPile = card
         player[x].remove(card)
