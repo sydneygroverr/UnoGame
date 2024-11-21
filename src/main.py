@@ -13,43 +13,74 @@ computerHand = oCard.getHand()
 
 throwAwayPile = oCard.getStartCard()
 
-print("Here is your starting hand:")
-
+print("\nHere is your starting hand:")
 print(playerHand)
 
-print("Here is the starting card: ")
-
+print("\nHere is the starting card: ")
 print(throwAwayPile)
 
-print("You go first!")
+print("\nYou go first!\n")
+
 player = [playerHand, computerHand]
+print(throwAwayPile)
+
 x, y = 0, 1
 
-# while len(playerHand) > 0 or len(computerHand) > 0:
-if x == 0:
-    card = oPlay.chooseCard(player[x], throwAwayPile)
-else: 
-    card = oPlay.computerTurn(player[x], throwAwayPile)
+while len(playerHand) > 0 or len(computerHand) > 0:
+    if x == 0:
+        card = oPlay.chooseCard(player[x], throwAwayPile)
+    else: 
+        card = oPlay.computerTurn(player[x], throwAwayPile)
 
-throwAwayPile = card
-print(throwAwayPile)
+    if card == "":
+        cardDrawn = oCard.getCard()
+        player[x].append(cardDrawn)
+    else:
+        throwAwayPile = card
+        player[x].remove(card)
 
-if card == "+4":
-    extraCards = oCard.draw4()
-    player[y].extend(extraCards)
-    x, y = y, x
-elif card == "choose color":
-    throwAwayPile = oCard.chooseColor() + " 0"
-    x, y = y, x
-elif card.endswith("skip"):
-    x, y = x, y
-elif card.endswith("draw 2"):
-    extraCards = oCard.draw2()
-    player[y].extend(extraCards)
-    x, y = y, x
-else:
-    x, y = y, x
+    print("Dicard pile: " + throwAwayPile)
+
+    if card == "+4":
+        extraCards = oCard.draw4()
+
+        if x == 0:
+            throwAwayPile = oCard.chooseColor() + " 0"
+        else: 
+            throwAwayPile = oCard.computerChooseColor(player[x]) + " 0"
+
+        player[y].extend(extraCards)
+
+        print("Dicard pile: " + throwAwayPile)
+        x, y = y, x
+
+    elif card == "choose color":
+        if x == 0:
+            throwAwayPile = oCard.chooseColor() + " 0"
+        else: 
+            throwAwayPile = oCard.computerChooseColor(player[x]) + " 0"
+
+        print("Dicard pile: " + throwAwayPile)        
+        x, y = y, x
+
+    elif card.endswith("skip"):
+        x, y = x, y
+
+    elif card.endswith("draw 2"):
+        extraCards = oCard.draw2()
+        player[y].extend(extraCards)
+
+        x, y = y, x
+
+    else:
+        x, y = y, x
 
 
-    
-
+    if len(playerHand) == 0:
+        print("You win!")
+        break 
+    elif len(computerHand) == 0:
+        print("You lose. Computer wins!")
+        break
+    else:
+        continue
