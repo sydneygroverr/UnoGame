@@ -80,11 +80,10 @@ while len(playerHand) > 0 or len(computerHand) > 0:
         x, y = y, x
 
 
-    if len(playerHand) == 0:
-        print("You win!")
-        break 
-    elif len(computerHand) == 0:
-        print("You lose. Computer wins!")
-        break
-    else:
+    result = oPlay.winner(playerHand, computerHand)
+    
+    if result == "":
         continue
+    else:
+        print(result)
+        break
