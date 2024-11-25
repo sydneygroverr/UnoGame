@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,5 +7,86 @@
 </head>
 <body>
     <p>this is a test</p>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNO Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        #game-state {
+            white-space: pre-wrap; /* Preserves formatting for JSON data */
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 20px auto;
+            width: 80%;
+            text-align: left;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>UNO Game</h1>
+    <div id="game-state">
+        <p>Loading game state...</p>
+    </div>
+    <button id="play-turn">Play Turn</button>
+
+    <script>
+        // Function to fetch and display the game state
+        function refreshState() {
+            fetch('/state')
+                .then(response => response.json())
+                .then(data => {
+                    const gameStateDiv = document.getElementById('game-state');
+                    gameStateDiv.innerText = JSON.stringify(data, null, 2); // Format JSON nicely
+                })
+                .catch(error => {
+                    console.error('Error fetching game state:', error);
+                });
+        }
+
+        // Function to handle playing a turn
+        document.getElementById('play-turn').addEventListener('click', () => {
+            fetch('/play', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Turn played:', data);
+                refreshState(); // Update the game state after playing a turn
+            })
+            .catch(error => {
+                console.error('Error playing turn:', error);
+            });
+        });
+
+        // Initial call to load the game state
+        refreshState();
+    </script>
 </body>
 </html>
