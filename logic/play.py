@@ -84,11 +84,4 @@ class Play():
                 # if they have no card that can play 
                 return ""
                     
-            
-    def winner(self, playerHand, computerHand):
-        if len(playerHand) == 0:
-            return("You win!") 
-        elif len(computerHand) == 0:
-            return("You lose. Computer wins!")
-        else:
-            return ""          
+        
